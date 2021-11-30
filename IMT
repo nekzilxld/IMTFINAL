@@ -1,0 +1,61 @@
+def vvod():
+    knopka_nachat.pack_forget()
+    gruppa_vvoda.pack()
+    knopka_gotovo.pack()
+
+def proverka():
+    try:
+        float(vvod_vesa.get())
+        float(vvod_rosta.get())
+        vivod()
+        return True
+    except ValueError:
+        messagebox.showinfo('Fatal ERROR', 'Число?')
+        return False
+
+def vivod():
+    IMT = float(vvod_vesa.get())/float(vvod_rosta.get())**2
+    if IMT < 18.5:
+        vivod = "Недостаток веса"
+    elif  18.5 < IMT < 25:
+        vivod = "Нормальный вес"
+    elif 25 < IMT < 30:
+        vivod = "Избыточный вес"
+    elif 30 < IMT < 35:
+        vivod = "Ожирение 1-й степени"
+    elif 35 < IMT < 40:
+        vivod = "Ожирение 2-й степени"
+    elif IMT > 40:
+        vivod = "Ожирение 3-й степени"
+    else:
+        vivod = "Неопределённый вывод. Я без понятия как такое вышло"
+    vivod = Label(wind, bg="black", fg="white", text="Поздравляю! У вас:\n" + vivod + ".")
+    vivod.pack()
+
+from tkinter import *
+from tkinter import messagebox
+
+wind = Tk()
+wind.title("IMT")
+wind ["bg"] = "black"
+knopka_nachat = Button(wind, text="Начать", bg="black", fg="white", command=vvod)
+knopka_nachat .pack(expand=True, fill=BOTH)
+
+gruppa_vvoda = Frame(relief=SUNKEN, bg="black")
+gruppa_vvoda.pack_forget()
+
+trebovanie_vesa = Label(master=gruppa_vvoda, bg="black", fg="white", text="Вес (кг):")
+trebovanie_vesa.grid(row=0, column=0, sticky="e")
+vvod_vesa = Entry(master=gruppa_vvoda)
+vvod_vesa.grid(row=0, column=1, columnspan=3)
+trebovanie_rosta = Label(master=gruppa_vvoda, bg="black", fg="white", text="Рост (м):")
+trebovanie_rosta.grid(row=1, column=0, sticky="e")
+vvod_rosta = Entry(master=gruppa_vvoda)
+vvod_rosta.grid(row=1, column=1, columnspan=3)
+
+
+
+knopka_gotovo = Button(wind , text="Готово", bg="black", fg="white", command=proverka)
+knopka_gotovo.pack_forget()
+
+wind.mainloop()
